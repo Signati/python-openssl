@@ -2,3 +2,5 @@
 /node_modules
 /lib
 /tsconfig.tsbuildinfo
+venv/
+.vscode/
