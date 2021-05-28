@@ -1,5 +1,4 @@
 import utils.getOsComandBin
-import utils.getOsComandBin
 import interface.OpenForm
 
 
@@ -15,7 +14,9 @@ class CliShare:
     def inform(self, form):
         # Type checking
         if not isinstance(form, interface.OpenForm.OpenForm):
-            raise TypeError('direction must be an instance of Direction Enum')
+            raise TypeError('form must be an instance of OpenForm Enum')
+        if form.value == interface.OpenForm.OpenForm.ENGINE:
+            raise TypeError('form dont must be ENGINE in this function')
         self.commandline += ' -inform ' + form.value;
         self.commandlineArray.append('-inform ' + form.value);
         return self;
@@ -24,7 +25,9 @@ class CliShare:
     def outform(self, form):
         # Type checking
         if not isinstance(form, interface.OpenForm.OpenForm):
-            raise TypeError('direction must be an instance of Direction Enum')
+            raise TypeError('direction must be an instance of OpenForm Enum')
+        if form.value == interface.OpenForm.OpenForm.ENGINE:
+            raise TypeError('form dont must be ENGINE in this function')
         self.commandline += ' -outform ' + form.value;
         self.commandlineArray.append('-outform ' + form.value);
         return self;
@@ -52,43 +55,27 @@ class CliShare:
         return self;
 
     def run(self, options):
-        return ''
+        try:
+            cli = self.commandline;
+            self.commandline = self.opensslBin + ' ' + self.command;
+            # const saxonProc = commandSync(cli, options).stdout;
+            # return saxonProc;
 
-    # try {
-    # const cli = self.commandline
-    # self.commandline = self.opensslBin + ' '+ self.command;
-    # const saxonProc = commandSync(cli, options).stdout;
-    # return saxonProc;
-    # } catch(e)
-    # {
-    # throw
-    # new
-    # Error(e.message);
+        except Exception as e:
+            print(e)
 
     def cli(self):
-        return ''
-
-    # try {
-    # const cp = self.commandline
-    # self.commandline = self.opensslBin + ' '+ self.command;
-    # return cp
-    # } catch(e)
-    # {
-    # throw
-    # new
-    # Error(e.message);
+        try:
+            cl = self.commandline
+            self.commandline = self.opensslBin + ' ' + self.command;
+            return cl
+        except Exception as e:
+            print(e)
 
     def cliArray(self):
-        return ''
-
-# try {
-# const cp =[...self.commandlineArray]
-# self.commandlineArray =[]
-# return cp;
-# } catch(e)
-# {
-# throw
-# new
-# Error(e.message);
-# li = CliShare()
-# print(li.opensslBin)
+        try:
+            cl = self.commandlineArray
+            self.commandlineArray = []
+            return cl;
+        except Exception as e:
+            print(e)
