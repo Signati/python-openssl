@@ -1,6 +1,7 @@
 import utils.getOsComandBin
 import utils.getOsComandBin
-import interface.derpem
+import interface.OpenForm
+
 
 class CliShare:
 
@@ -11,36 +12,38 @@ class CliShare:
         self.command = '';
 
     # ["DER", "PEM"]
-    def inform(self, direction):
+    def inform(self, form):
         # Type checking
-        if not isinstance(direction, interface.derpem.Direction):
+        if not isinstance(form, interface.OpenForm.OpenForm):
             raise TypeError('direction must be an instance of Direction Enum')
-
-
-        self.commandline += ' -inform ' + direction.value;
-        self.commandlineArray.append('-inform ' + direction.value);
+        self.commandline += ' -inform ' + form.value;
+        self.commandlineArray.append('-inform ' + form.value);
         return self;
 
-    def outform(self, options: ["DER", "PEM"]):
-        self.commandline += ' -outform  ${options}';
-        self.commandlineArray.append('-outform ${options}');
+    # ["DER", "PEM"]
+    def outform(self, form):
+        # Type checking
+        if not isinstance(form, interface.OpenForm.OpenForm):
+            raise TypeError('direction must be an instance of Direction Enum')
+        self.commandline += ' -outform ' + form.value;
+        self.commandlineArray.append('-outform ' + form.value);
         return self;
 
     def In(self, filename):
-        self.commandline += ' -in  ${filename}';
-        self.commandlineArray.append('-in ${filename}');
+        self.commandline += ' -in ' + filename;
+        self.commandlineArray.append(' -in ' + filename);
         return self;
 
     # todo https://www.openssl.org/docs/man1.1.1/man1/openssl.html
 
     def passin(self, arg):
-        self.commandline += ' -passin ${arg}';
-        self.commandlineArray.append('-passin ${arg}');
+        self.commandline += ' -passin ' + arg;
+        self.commandlineArray.append(' -passin ' + arg);
         return self;
 
     def passout(self, arg):
-        self.commandline += ' -passout ${arg}';
-        self.commandlineArray.append('-passout ${arg}');
+        self.commandline += ' -passout ' + arg;
+        self.commandlineArray.append(' -passout ' + arg);
         return self;
 
     def out(self, filename):

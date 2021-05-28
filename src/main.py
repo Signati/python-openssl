@@ -1,7 +1,7 @@
 from openssl.cliShare import CliShare
-from interface.derpem import Direction
+from interface.OpenForm import OpenForm
 
 li = CliShare()
-li.inform(Direction.DOWN)
+li.inform(OpenForm.DER)
 li.out("a")
 print(li.commandlineArray)
